@@ -197,12 +197,6 @@ if ( ! class_exists( 'q_nprogress' ) ) {
             require_once self::get_plugin_path( 'library/core/helper.php' );
             require_once self::get_plugin_path( 'library/core/core.php' );
 
-            // backend ##
-            // require_once self::get_plugin_path( 'library/admin/ajax.php' );
-            
-            // widgets for template ##
-            #require_once self::get_plugin_path( 'library/theme/widget/search.php' );
-
             // frontend ##
             require_once self::get_plugin_path( 'library/theme/theme.php' );
 
