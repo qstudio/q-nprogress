@@ -13,7 +13,7 @@
  * Plugin Name:     Q NProgress
  * Plugin URI:      https://www.qstudio.us
  * Description:     Include NProgress in WordPress: http://ricostacruz.com/nprogress/
- * Version:         1.0.0
+ * Version:         1.1.0
  * Author:          Q Studio
  * Author URI:      https://www.qstudio.us
  * License:         GPL
@@ -44,8 +44,8 @@ if ( ! class_exists( 'q_nprogress' ) ) {
         private static $instance = null;
 
         // Plugin Settings
-        const version = '1.0.0';
-        static $device = ''; // start false ##
+        const version = '1.1.0';
+        // static $device = ''; // start false ##
         static $debug = false;
         // static $load_count = 0;
         const text_domain = 'q-nprogress'; // for translation ##
@@ -91,20 +91,40 @@ if ( ! class_exists( 'q_nprogress' ) ) {
 
             // set text domain ##
             add_action( 'init', array( $this, 'load_plugin_textdomain' ), 1 );
-            
-            // load properties ##
-            #self::load_properties();
-
-            // define debug ##
-            self::$debug = 
-                ( true === self::$debug ) ? 
-                true : 
-                class_exists( 'Q' ) ? 
-                    \Q::$debug : // use Q debug setting, as plugin property not active ##
-                    false ;
 
             // load libraries ##
             self::load_libraries();
+
+            // check debug settings ##
+            add_action( 'plugins_loaded', array( get_class(), 'debug' ), 11 );
+
+        }
+
+
+
+        /**
+         * We want the debugging to be controlled in global and local steps
+         * If Q debug is true -- all debugging is true
+         * else follow settings in Q, or this plugin $debug variable
+         */
+        public static function debug()
+        {
+
+            // define debug ##
+            self::$debug = 
+                ( 
+                    class_exists( 'Q' )
+                    && true === \Q::$debug
+                ) ?
+                true :
+                self::$debug ;
+
+            // test ##
+            // helper::log( 'Q exists: '.json_encode( class_exists( 'Q' ) ) );
+            // helper::log( 'Q debug: '.json_encode( \Q::$debug ) );
+            // helper::log( json_encode( self::$debug ) );
+
+            return self::$debug;
 
         }
 
@@ -185,6 +205,33 @@ if ( ! class_exists( 'q_nprogress' ) ) {
         
 
 
+         /**
+         * Check for required classes to build UI features
+         * 
+         * @return      Boolean 
+         * @since       0.1.0
+         */
+        public static function has_dependencies()
+        {
+
+            // check for what's needed ##
+            if (
+                ! class_exists( 'Q' )
+            ) {
+
+                helper::log( 'Q classes are required, install required plugin.' );
+
+                return false;
+
+            }
+
+            // ok ##
+            return true;
+
+        }
+        
+        
+
         /**
         * Load Libraries
         *
@@ -192,6 +239,13 @@ if ( ! class_exists( 'q_nprogress' ) ) {
         */
 		private static function load_libraries()
         {
+
+            // check for dependencies, required for UI components - admin will still run ##
+            if ( ! self::has_dependencies() ) {
+
+                return false;
+
+            }
 
             // methods ##
             require_once self::get_plugin_path( 'library/core/helper.php' );
