@@ -31,6 +31,8 @@
  * https://github.com/rstacruz/nprogress
  */
 
+use q\nprogress\core\helper as helper;
+
 defined( 'ABSPATH' ) OR exit;
 
 if ( ! class_exists( 'q_nprogress' ) ) {
