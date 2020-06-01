@@ -2,8 +2,8 @@
 
 namespace q\nprogress\core;
 
-use q\nprogress\core\helper as helper;
-use q\nprogress\theme\theme as theme;
+use q\nprogress\core\helper as h;
+// use q\nprogress\theme\theme as theme;
 
 // load it up ##
 #\q\nprogress\core\core::run();
@@ -87,8 +87,8 @@ class core extends \q_nprogress {
     {
 
         if ( 
-            'handheld' == helper::get_device() 
-            || 'tablet' == helper::get_device() 
+            'handheld' == h::device() 
+            || 'tablet' == h::device() 
         ) {
 
             return true;
