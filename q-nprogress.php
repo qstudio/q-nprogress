@@ -31,7 +31,7 @@
  * https://github.com/rstacruz/nprogress
  */
 
-use q\nprogress\core\helper as helper;
+use q\nprogress\core\helper as h;
 
 defined( 'ABSPATH' ) OR exit;
 
@@ -84,7 +84,7 @@ if ( ! class_exists( 'q_nprogress' ) ) {
          */
         private function __construct() 
         {
-            
+			
             // activation ##
             register_activation_hook( __FILE__, array ( $this, 'register_activation_hook' ) );
 
@@ -95,8 +95,8 @@ if ( ! class_exists( 'q_nprogress' ) ) {
             add_action( 'init', array( $this, 'load_plugin_textdomain' ), 1 );
 
             // load libraries ##
-            self::load_libraries();
-
+			self::load_libraries();
+			
             // check debug settings ##
             add_action( 'plugins_loaded', array( get_class(), 'debug' ), 11 );
 
@@ -122,9 +122,9 @@ if ( ! class_exists( 'q_nprogress' ) ) {
                 self::$debug ;
 
             // test ##
-            // helper::log( 'Q exists: '.json_encode( class_exists( 'Q' ) ) );
-            // helper::log( 'Q debug: '.json_encode( \Q::$debug ) );
-            // helper::log( json_encode( self::$debug ) );
+            // h::log( 'Q exists: '.json_encode( class_exists( 'Q' ) ) );
+            // h::log( 'Q debug: '.json_encode( \Q::$debug ) );
+            // h::log( json_encode( self::$debug ) );
 
             return self::$debug;
 
@@ -221,7 +221,7 @@ if ( ! class_exists( 'q_nprogress' ) ) {
                 ! class_exists( 'Q' )
             ) {
 
-                helper::log( 'Q classes are required, install required plugin.' );
+                h::log( 'e:>Q classes are required, install required plugin.' );
 
                 return false;
 
@@ -254,7 +254,7 @@ if ( ! class_exists( 'q_nprogress' ) ) {
             require_once self::get_plugin_path( 'library/core/core.php' );
 
             // frontend ##
-            require_once self::get_plugin_path( 'library/theme/theme.php' );
+            require_once self::get_plugin_path( 'library/ui/theme.php' );
 
         }
 
