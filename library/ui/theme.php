@@ -40,11 +40,11 @@ class theme extends \q_nprogress {
 	{
 
 		// add CSS ##
-		\wp_register_style( 'q-nprogress', self::get_plugin_url( 'library/ui/css/nprogress.css' ), '', self::version );
+		\wp_register_style( 'q-nprogress', self::get_plugin_url( 'library/ui/css/q.nprogress.css' ), '', self::version );
 		\wp_enqueue_style( 'q-nprogress' );
 
 		// add JS ##
-		\wp_enqueue_script( 'q-nprogresss', self::get_plugin_url( 'library/ui/javascript/nprogress.js' ), array( "jquery" ), self::version, false );
+		\wp_enqueue_script( 'q-nprogresss', self::get_plugin_url( 'library/ui/javascript/q.nprogress.js' ), array( "jquery" ), self::version, false );
 
 	}
 

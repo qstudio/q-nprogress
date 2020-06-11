@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) OR exit;
 if ( ! class_exists( 'q_nprogress' ) ) {
     
     // instatiate plugin via WP plugins_loaded - init is too late for CPT ##
-    add_action( 'plugins_loaded', array ( 'q_nprogress', 'get_instance' ), 5 );
+    add_action( 'after_setup_theme', array ( 'q_nprogress', 'get_instance' ), 1 );
     
     class q_nprogress {
                 
